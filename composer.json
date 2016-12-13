@@ -1,0 +1,20 @@
+{
+    "name": "steevanb/doctrine-entity-merger",
+    "license": "MIT",
+    "description": "Add hint MERGE_ENTITY to merge fields retrieved by many queries",
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": { "steevanb\\DoctrineEntityMerger\\": "" }
+    },
+    "require": {
+        "php" : "^5.4.0 || ^7.0",
+        "doctrine/orm": "^2.4.8",
+        "steevanb/doctrine-events": "dev-master"
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/steevanb/doctrine-entity-merger.git"
+        }
+    ]
+}
