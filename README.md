@@ -37,19 +37,13 @@ $foo2 = $repository
     ->getSingleResult();
 
 // $foo1 is same object as $foo2, cause Doctrine know first query hydrated $foo1
-
 // so, when you ask same entity (same id in query) with 2nd query, Doctrine will execute SQL,
-
 // but will not hydrate a new entity
-
 // UnitOfWork will return instance of Foo it has already hydrated, with first query
-
 var_dump(spl_object_hash($foo1) === $spl_object_hash($foo2)); // true
 
 // but, as Doctrine return $foo1 in 2nd query, your new field description will not be defined in $foo1
-
 var_dump($foo1->getDescription()); // null, but we want it, cause it's defined in PARTIAL 2nd query
-
 ```
 
 You can use steevanb\DoctrineEntityMerger\QueryHint::MERGE_ENTITY to define description in $foo1 :
@@ -64,11 +58,9 @@ $foo1 = $repository
     ->getSingleResult();
 
 var_dump($foo1->getName()); // 'My name' for example
-
 var_dump($foo1->getDescription()); // null, that's fine, description is not in PARTIAL
 
 $foo1->setName('New name');
-
 var_dump($foo1->getName()); // 'New name'
 
 $foo2 = $repository
