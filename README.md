@@ -1,9 +1,9 @@
 [![version](https://img.shields.io/badge/version-1.0.0-green.svg)](https://github.com/steevanb/doctrine-events/tree/1.0.0)
 [![doctrine](https://img.shields.io/badge/doctrine/orm-^2.5.0-blue.svg)](http://www.doctrine-project.org)
 [![php](https://img.shields.io/badge/php-^5.4.6 || ^7.0-blue.svg)](http://www.php.net)
-![Lines](https://img.shields.io/badge/code lines-XXXX-green.svg)
+![Lines](https://img.shields.io/badge/code lines-228-green.svg)
 ![Total Downloads](https://poser.pugx.org/steevanb/doctrine-events/downloads)
-[![SensionLabsInsight](https://img.shields.io/badge/SensionLabsInsight-platinum-brightgreen.svg)](https://insight.sensiolabs.com/projects/cf51b54f-77fa-459d-8a55-503732fef052/analyses/1)
+[![SensionLabsInsight](https://img.shields.io/badge/SensionLabsInsight-platinum-brightgreen.svg)](https://insight.sensiolabs.com/projects/cf51b54f-77fa-459d-8a55-503732fef052/analyses/2)
 [![Scrutinizer](https://scrutinizer-ci.com/g/steevanb/doctrine-entity-merger/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/steevanb/doctrine-entity-merger/)
 
 doctrine-entity-merger
@@ -42,9 +42,9 @@ $foo2 = $repository
 
 // but will not hydrate a new entity
 
-// UnitOfWork will return instance of Foo it had already hydrated, with first query
+// UnitOfWork will return instance of Foo it has already hydrated, with first query
 
-var_dump(spl_object_has($foo1) === $spl_object_has($foo2)); // true
+var_dump(spl_object_hash($foo1) === $spl_object_hash($foo2)); // true
 
 // but, as Doctrine return $foo1 in 2nd query, your new field description will not be defined in $foo1
 
@@ -111,8 +111,10 @@ $entityManager->getEventManager()->addEventSubscriber(
 If you want to add MERGE_ENTITY hint to all of your queries, you can do this :
 
 ```php
-use steevanb\DoctrineEntityMerger\QueryHint;
-$entityManager->getConfiguration()->setDefaultQueryHint(QueryHint::MERGE_ENTITY, true);
+$entityManager->getConfiguration()->setDefaultQueryHint(
+    steevanb\DoctrineEntityMerger\QueryHint\QueryHint::MERGE_ENTITY,
+    true
+);
 ```
 
 For example, if you are on a Symfony project, you can add it in AppKernel :
