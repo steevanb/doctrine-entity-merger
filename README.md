@@ -113,21 +113,25 @@ For example, if you are on a Symfony project, you can add it in AppKernel :
 ```php
 # app/AppKernel.php
 
+use Doctrine\ORM\EntityManagerInterface;
+use steevanb\DoctrineEntityMerger\QueryHint;
+use steevanb\DoctrineEntityMerger\EventSubscriber\EntityMergerSubscriber;
+
 class AppKernel
 {
     public function boot()
     {
         parent::boot();
+        
+        foreach ($this->getContainer()->get('doctrine')->getManagers() as $manager) {
+            if ($manager instanceof EntityManagerInterface) {
+                // add hint MERGE_ENTITY to all your queries
+                $manager->getConfiguration()->setDefaultQueryHint(QueryHint::MERGE_ENTITY, true);
 
-        // add hint MERGE_ENTITY to all your queries
-        foreach ($this->getContainer()->get('doctrine')->getEntityManagers() as $entityManager) {
-            $entityManager->getConfiguration()->setDefaultQueryHint(QueryHint::MERGE_ENTITY, true);
+                // add listener, who use steevanb/doctrine-events to change UnitOfWork::createEntity()
+                // to take into account MERGE_ENTITY hint
+                $manager->getEventManager()->addEventSubscriber(new EntityMergerSubscriber());
+            }
         }
-
-        // add listener, who use steevanb/doctrine-events to change UnitOfWork::createEntity()
-        // to take into account MERGE_ENTITY hint
-        $this->getContainer()->get('doctrine')->getEntityManager()->getEventManager()->addEventSubscriber(
-            new \steevanb\DoctrineEntityMerger\EventSubscriber\EntityMergerSubscriber()
-        );
     }
 }
