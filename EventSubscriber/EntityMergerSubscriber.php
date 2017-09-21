@@ -34,18 +34,17 @@ class EntityMergerSubscriber implements EventSubscriber
     {
         $classMetadata = $eventArgs->getEntityManager()->getClassMetadata($eventArgs->getClassName());
         $entityHash = spl_object_hash($eventArgs->getEntity());
-        $haveMergeEntityHint = $this->haveMergeEntityHint($eventArgs->getHints());
 
-        foreach ($eventArgs->getData() as $field => $value) {
-            if (isset($classMetadata->fieldMappings[$field])) {
-                if ($haveMergeEntityHint) {
-                    $eventArgs->addDefinedFieldValue($field);
+        if ($this->haveMergeEntityHint($eventArgs->getHints())) {
+            foreach ($eventArgs->getData() as $field => $value) {
+                if (isset($classMetadata->fieldMappings[$field])) {
                     if (isset($this->definedFieldValues[$entityHash][$field]) === false) {
+                        $eventArgs->addDefinedFieldValue($field);
                         $classMetadata->reflFields[$field]->setValue($eventArgs->getEntity(), $value);
                     }
-                }
 
-                $this->definedFieldValues[$entityHash][$field] = true;
+                    $this->definedFieldValues[$entityHash][$field] = true;
+                }
             }
         }
     }
