@@ -1,9 +1,9 @@
-[![version](https://img.shields.io/badge/version-1.0.0-green.svg)](https://github.com/steevanb/doctrine-events/tree/1.0.0)
+[![version](https://img.shields.io/badge/version-1.0.1-green.svg)](https://github.com/steevanb/doctrine-entity-merger/tree/1.0.1)
 [![doctrine](https://img.shields.io/badge/doctrine/orm-^2.5.0-blue.svg)](http://www.doctrine-project.org)
 [![php](https://img.shields.io/badge/php-^5.4.6%20||%20^7.0-blue.svg)](http://www.php.net)
-![Lines](https://img.shields.io/badge/code%20lines-228-green.svg)
+![Lines](https://img.shields.io/badge/code%20lines-232-green.svg)
 ![Total Downloads](https://poser.pugx.org/steevanb/doctrine-events/downloads)
-[![SensionLabsInsight](https://img.shields.io/badge/SensionLabsInsight-platinum-brightgreen.svg)](https://insight.sensiolabs.com/projects/cf51b54f-77fa-459d-8a55-503732fef052/analyses/2)
+[![SensionLabsInsight](https://img.shields.io/badge/SensionLabsInsight-platinum-brightgreen.svg)](https://insight.sensiolabs.com/projects/cf51b54f-77fa-459d-8a55-503732fef052/analyses/13)
 [![Scrutinizer](https://scrutinizer-ci.com/g/steevanb/doctrine-entity-merger/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/steevanb/doctrine-entity-merger/)
 
 doctrine-entity-merger
@@ -39,14 +39,14 @@ $foo2 = $repository
 // $foo1 is same object as $foo2, cause Doctrine know first query hydrated $foo1
 // so, when you ask same entity (same id in query) with 2nd query, Doctrine will execute SQL,
 // but will not hydrate a new entity
-// UnitOfWork will return instance of Foo it has already hydrated, with first query
-var_dump(spl_object_hash($foo1) === $spl_object_hash($foo2)); // true
+// UnitOfWork will return instance of Foo who is already hydrated, with first query
+var_dump(spl_object_hash($foo1) === spl_object_hash($foo2)); // true
 
 // but, as Doctrine return $foo1 in 2nd query, your new field description will not be defined in $foo1
 var_dump($foo1->getDescription()); // null, but we want it, cause it's defined in PARTIAL 2nd query
 ```
 
-You can use steevanb\DoctrineEntityMerger\QueryHint::MERGE_ENTITY to define description in $foo1 :
+You can use _steevanb\DoctrineEntityMerger\QueryHint::MERGE_ENTITY_ to define description in _$foo1_ :
 ```php
 use steevanb\DoctrineEntityMerger\QueryHint;
 
@@ -79,7 +79,7 @@ var_dump($foo1->getDescription()); // 'My description'
 Installation
 ------------
 
-As doctrine-entity-merger use steevanb/doctrine-events, see how to install it
+As _doctrine-entity-merger_ use _steevanb/doctrine-events_, see how to install it
 (composer dependecy is added here, you don't need to add it for steevanb/doctrine-events) :
 
 [steevanb/doctrine-events](https://github.com/steevanb/doctrine-events)
@@ -93,7 +93,7 @@ Add it to your composer.json :
 }
 ```
 
-Add EntityMergerSubscriber :
+Add _EntityMergerSubscriber_ :
 ```php
 $entityManager->getEventManager()->addEventSubscriber(
     new steevanb\DoctrineEntityMerger\EventSubscriber\EntityMergerSubscriber()
@@ -109,7 +109,7 @@ $entityManager->getConfiguration()->setDefaultQueryHint(
 );
 ```
 
-For example, if you are on a Symfony project, you can add it in AppKernel :
+For example, if you are on a Symfony project, you can add it in _AppKernel_ :
 ```php
 # app/AppKernel.php
 
