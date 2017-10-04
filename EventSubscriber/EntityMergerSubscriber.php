@@ -3,6 +3,7 @@
 namespace steevanb\DoctrineEntityMerger\EventSubscriber;
 
 use Doctrine\Common\EventSubscriber;
+use Doctrine\ORM\Events;
 use steevanb\DoctrineEntityMerger\QueryHint;
 use steevanb\DoctrineEvents\Doctrine\ORM\Event\OnCreateEntityDefineFieldValuesEventArgs;
 use steevanb\DoctrineEvents\Doctrine\ORM\Event\OnCreateEntityOverrideLocalValuesEventArgs;
@@ -17,7 +18,8 @@ class EntityMergerSubscriber implements EventSubscriber
     {
         return [
             OnCreateEntityOverrideLocalValuesEventArgs::EVENT_NAME,
-            OnCreateEntityDefineFieldValuesEventArgs::EVENT_NAME
+            OnCreateEntityDefineFieldValuesEventArgs::EVENT_NAME,
+            Events::onClear
         ];
     }
 
@@ -37,16 +39,26 @@ class EntityMergerSubscriber implements EventSubscriber
 
         if ($this->haveMergeEntityHint($eventArgs->getHints())) {
             foreach ($eventArgs->getData() as $field => $value) {
-                if (isset($classMetadata->fieldMappings[$field])) {
-                    if (isset($this->definedFieldValues[$entityHash][$field]) === false) {
-                        $eventArgs->addDefinedFieldValue($field);
-                        $classMetadata->reflFields[$field]->setValue($eventArgs->getEntity(), $value);
-                    }
-
+                if (
+                    isset($classMetadata->fieldMappings[$field])
+                    && isset($this->definedFieldValues[$entityHash][$field]) === false
+                ) {
+                    $classMetadata->reflFields[$field]->setValue($eventArgs->getEntity(), $value);
                     $this->definedFieldValues[$entityHash][$field] = true;
                 }
             }
         }
+
+        if (array_key_exists($entityHash, $this->definedFieldValues)) {
+            foreach (array_keys($this->definedFieldValues[$entityHash]) as $field) {
+                $eventArgs->addDefinedFieldValue($field);
+            }
+        }
+    }
+
+    public function onClear()
+    {
+        $this->definedFieldValues = [];
     }
 
     /**
