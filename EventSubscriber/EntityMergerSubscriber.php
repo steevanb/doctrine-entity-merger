@@ -5,6 +5,7 @@ namespace steevanb\DoctrineEntityMerger\EventSubscriber;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Events;
 use steevanb\DoctrineEntityMerger\QueryHint;
+use steevanb\DoctrineEvents\Doctrine\ORM\Event\AbstractOnCreateEntityEventArgs;
 use steevanb\DoctrineEvents\Doctrine\ORM\Event\OnCreateEntityDefineFieldValuesEventArgs;
 use steevanb\DoctrineEvents\Doctrine\ORM\Event\OnCreateEntityOverrideLocalValuesEventArgs;
 
@@ -26,7 +27,7 @@ class EntityMergerSubscriber implements EventSubscriber
     /** @param OnCreateEntityOverrideLocalValuesEventArgs $eventArgs */
     public function onCreateEntityOverrideLocalValues(OnCreateEntityOverrideLocalValuesEventArgs $eventArgs)
     {
-        if ($this->haveMergeEntityHint($eventArgs->getHints())) {
+        if ($this->haveMergeEntityHint($eventArgs)) {
             $eventArgs->setOverrideLocalValues(true);
         }
     }
@@ -37,7 +38,7 @@ class EntityMergerSubscriber implements EventSubscriber
         $classMetadata = $eventArgs->getEntityManager()->getClassMetadata($eventArgs->getClassName());
         $entityHash = spl_object_hash($eventArgs->getEntity());
 
-        if ($this->haveMergeEntityHint($eventArgs->getHints())) {
+        if ($this->haveMergeEntityHint($eventArgs)) {
             foreach ($eventArgs->getData() as $field => $value) {
                 if (
                     isset($classMetadata->fieldMappings[$field])
@@ -65,8 +66,14 @@ class EntityMergerSubscriber implements EventSubscriber
      * @param array $hints
      * @return bool
      */
-    protected function haveMergeEntityHint(array $hints)
+    protected function haveMergeEntityHint(AbstractOnCreateEntityEventArgs $eventArgs)
     {
+        // https://github.com/doctrine/doctrine2/issues/6751
+        $hints = array_merge(
+            $eventArgs->getEntityManager()->getConfiguration()->getDefaultQueryHints(),
+            $eventArgs->getHints()
+        );
+
         return isset($hints[QueryHint::MERGE_ENTITY]);
     }
 }

@@ -1,9 +1,9 @@
-[![version](https://img.shields.io/badge/version-1.0.2-green.svg)](https://github.com/steevanb/doctrine-entity-merger/tree/1.0.2)
+[![version](https://img.shields.io/badge/version-1.0.3-green.svg)](https://github.com/steevanb/doctrine-entity-merger/tree/1.0.3)
 [![doctrine](https://img.shields.io/badge/doctrine/orm-^2.5.0-blue.svg)](http://www.doctrine-project.org)
 [![php](https://img.shields.io/badge/php-^5.4.6%20||%20^7.0-blue.svg)](http://www.php.net)
-![Lines](https://img.shields.io/badge/code%20lines-250-green.svg)
+![Lines](https://img.shields.io/badge/code%20lines-261-green.svg)
 ![Total Downloads](https://poser.pugx.org/steevanb/doctrine-events/downloads)
-[![SensionLabsInsight](https://img.shields.io/badge/SensionLabsInsight-platinum-brightgreen.svg)](https://insight.sensiolabs.com/projects/cf51b54f-77fa-459d-8a55-503732fef052/analyses/15)
+[![SensionLabsInsight](https://img.shields.io/badge/SensionLabsInsight-platinum-brightgreen.svg)](https://insight.sensiolabs.com/projects/cf51b54f-77fa-459d-8a55-503732fef052/analyses/16)
 [![Scrutinizer](https://scrutinizer-ci.com/g/steevanb/doctrine-entity-merger/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/steevanb/doctrine-entity-merger/)
 
 doctrine-entity-merger
