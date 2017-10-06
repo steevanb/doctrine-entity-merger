@@ -68,12 +68,6 @@ class EntityMergerSubscriber implements EventSubscriber
      */
     protected function haveMergeEntityHint(AbstractOnCreateEntityEventArgs $eventArgs)
     {
-        // https://github.com/doctrine/doctrine2/issues/6751
-        $hints = array_merge(
-            $eventArgs->getEntityManager()->getConfiguration()->getDefaultQueryHints(),
-            $eventArgs->getHints()
-        );
-
-        return isset($hints[QueryHint::MERGE_ENTITY]);
+        return isset($eventArgs->getHints()[QueryHint::MERGE_ENTITY]);
     }
 }

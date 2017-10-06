@@ -1,3 +1,7 @@
+### [1.0.4](../../compare/1.0.3...1.0.4) - 2017-10-06
+
+- Revert fix Doctrine issue [#6751](https://github.com/doctrine/doctrine2/issues/6751), PARTIAL with Collection have too much bugs to work
+
 ### [1.0.3](../../compare/1.0.2...1.0.3) - 2017-10-04
 
 - Fix Doctrine issue [#6751](https://github.com/doctrine/doctrine2/issues/6751), by adding defaut query hints to query hints
