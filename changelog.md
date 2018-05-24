@@ -1,3 +1,7 @@
+### [1.0.5](../../compare/1.0.4...1.0.5) - 2018-05-24
+
+- [ZeMarine](https://github.com/ZeMarine) Fix QueryHint::MERGE_ENTITY value
+
 ### [1.0.4](../../compare/1.0.3...1.0.4) - 2017-10-06
 
 - Revert fix Doctrine issue [#6751](https://github.com/doctrine/doctrine2/issues/6751), PARTIAL with Collection have too much bugs to work

@@ -1,9 +1,9 @@
-[![version](https://img.shields.io/badge/version-1.0.4-green.svg)](https://github.com/steevanb/doctrine-entity-merger/tree/1.0.4)
+[![version](https://img.shields.io/badge/version-1.0.5-green.svg)](https://github.com/steevanb/doctrine-entity-merger/tree/1.0.5)
 [![doctrine](https://img.shields.io/badge/doctrine/orm-^2.5.0-blue.svg)](http://www.doctrine-project.org)
 [![php](https://img.shields.io/badge/php-^5.4.6%20||%20^7.0-blue.svg)](http://www.php.net)
-![Lines](https://img.shields.io/badge/code%20lines-259-green.svg)
+![Lines](https://img.shields.io/badge/code%20lines-264-green.svg)
 ![Total Downloads](https://poser.pugx.org/steevanb/doctrine-events/downloads)
-[![SensionLabsInsight](https://img.shields.io/badge/SensionLabsInsight-platinum-brightgreen.svg)](https://insight.sensiolabs.com/projects/cf51b54f-77fa-459d-8a55-503732fef052/analyses/17)
+[![SensionLabsInsight](https://img.shields.io/badge/SensionLabsInsight-platinum-brightgreen.svg)](https://insight.sensiolabs.com/projects/cf51b54f-77fa-459d-8a55-503732fef052/analyses/18)
 [![Scrutinizer](https://scrutinizer-ci.com/g/steevanb/doctrine-entity-merger/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/steevanb/doctrine-entity-merger/)
 
 doctrine-entity-merger
@@ -90,7 +90,7 @@ Add it to your composer.json :
 ```yml
 {
     "require": {
-        "steevanb/doctrine-entity-merger": "^1.0.4",
+        "steevanb/doctrine-entity-merger": "^1.0.5",
     }
 }
 ```
