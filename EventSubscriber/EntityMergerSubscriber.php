@@ -68,6 +68,7 @@ class EntityMergerSubscriber implements EventSubscriber
      */
     protected function haveMergeEntityHint(AbstractOnCreateEntityEventArgs $eventArgs)
     {
-        return isset($eventArgs->getHints()[QueryHint::MERGE_ENTITY]);
+        return isset($eventArgs->getHints()[QueryHint::MERGE_ENTITY])
+            && $eventArgs->getHints()[QueryHint::MERGE_ENTITY];
     }
 }
